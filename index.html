@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A1A1A">
+<title>Caso Cerrado · El Estado de los Muertos</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ══════ PERFIL ══════ -->
+  <section class="screen active" id="s-perfil">
+    <div class="hero">
+      <div class="emblema"><svg viewBox="0 0 64 64"><path d="M32 4L58 14v20c0 14-11 24-26 30C17 58 6 48 6 34V14z" fill="none" stroke="#FFC107" stroke-width="3"/><path d="M32 18v22M22 28h20" stroke="#6A1B9A" stroke-width="4" stroke-linecap="round"/></svg></div>
+      <h1 class="t-hero">CASO CERRADO</h1>
+      <p class="sub-hero">EL ESTADO DE LOS MUERTOS</p>
+      <p class="tag">ENTRENAMIENTO INTENSIVO</p>
+    </div>
+    <div class="card">
+      <p class="lead">Te queda poco tiempo.<br><strong>Entrena. Responde. Memoriza. Prepárate.</strong></p>
+      <label class="lbl">Tu nombre</label>
+      <input type="text" id="in-nombre" placeholder="Escribe tu nombre" autocomplete="off">
+      <label class="lbl">Tu clase</label>
+      <select id="in-clase">
+        <option value="">Selecciona</option>
+        <option>Amigo</option><option>Compañero</option><option>Explorador</option>
+        <option>Orientador</option><option>Viajero</option><option>Guía</option>
+      </select>
+      <button class="btn primary big" onclick="guardarPerfil()">EMPEZAR ENTRENAMIENTO</button>
+    </div>
+  </section>
+
+  <!-- ══════ INICIO ══════ -->
+  <section class="screen" id="s-inicio">
+    <header class="top">
+      <div>
+        <p class="eyebrow">ENTRENAMIENTO DE</p>
+        <h2 class="nombre" id="lbl-nombre">—</h2>
+      </div>
+      <button class="icon-btn" onclick="ir('s-perfil')" aria-label="Perfil">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </button>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><span class="n" id="st-dom">0%</span><span class="l">Dominado</span></div>
+      <div class="stat"><span class="n" id="st-resp">0</span><span class="l">Respondidas</span></div>
+      <div class="stat"><span class="n ok" id="st-ok">0</span><span class="l">Aciertos</span></div>
+      <div class="stat"><span class="n bad" id="st-err">0</span><span class="l">Errores</span></div>
+    </div>
+    <div class="nivel-wrap">
+      <div class="nivel-bar"><div class="nivel-fill" id="nivel-fill"></div></div>
+      <p class="nivel-txt">Nivel: <strong id="lbl-nivel">Recluta</strong></p>
+    </div>
+
+    <button class="btn destacado" onclick="ir('s-rapido')">
+      <span class="btn-t">ENTRENAMIENTO RÁPIDO</span>
+      <span class="btn-s">Dime cuánto tiempo tienes</span>
+    </button>
+
+    <div class="grid">
+      <button class="tile" onclick="abrirEstudiar()"><svg viewBox="0 0 24 24"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg><span>Estudiar</span></button>
+      <button class="tile" onclick="abrirMemoria()"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 00-4 12.7V19h8v-3.3A7 7 0 0012 3z"/></svg><span>Memoria</span></button>
+      <button class="tile" onclick="abrirVersiculos()"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6"/></svg><span>Versículos</span></button>
+      <button class="tile" onclick="abrirFlash()"><svg viewBox="0 0 24 24"><path d="M3 7h14v10H3zM17 10h4v7h-4z"/></svg><span>Flashcards</span></button>
+      <button class="tile" onclick="ir('s-quizmenu')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 113.5 2.3V14M12 17h.01"/></svg><span>Quiz</span></button>
+      <button class="tile" onclick="iniciarSimulacro()"><svg viewBox="0 0 24 24"><path d="M6 3h12v6l-4 3 4 3v6H6v-6l4-3-4-3z"/></svg><span>Simulacro</span></button>
+      <button class="tile" onclick="iniciarJurado()"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8h14M7 8l-3 6h6zM17 8l-3 6h6z"/></svg><span>Jurado</span></button>
+      <button class="tile" onclick="iniciar5s()"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg><span>5 segundos</span></button>
+      <button class="tile" onclick="abrirCasos()"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM9 7V4h6v3"/></svg><span>Casos</span></button>
+      <button class="tile" onclick="abrirConfusiones()"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 9v4M12 16h.01"/></svg><span>No confundas</span></button>
+      <button class="tile" onclick="abrirErrores()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg><span>Mis errores</span></button>
+      <button class="tile" onclick="iniciarGrupo()"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3.3 2.7-6 6-6s6 2.7 6 6M15 19c0-2.4 1.4-4.2 3.5-4.2S22 16.6 22 19"/></svg><span>Reto grupal</span></button>
+    </div>
+
+    <button class="btn examen" onclick="iniciarExamen()">
+      <span class="btn-t">EXAMEN FINAL</span><span class="btn-s">50 preguntas de todo</span>
+    </button>
+    <button class="btn oro" onclick="abrirRepaso()">
+      <span class="btn-t">REPASO 10 MINUTOS ANTES</span><span class="btn-s">Léelo justo antes de pasar</span>
+    </button>
+    <button class="btn ghost small" onclick="borrarProgreso()">Borrar mi progreso</button>
+    <p class="fuente">Basado en <em>C 07 — La Naturaleza Humana</em><br>La Última Legión · Camporee Interno 2026</p>
+  </section>
+
+  <!-- ══════ PANTALLAS GENÉRICAS ══════ -->
+  <section class="screen" id="s-rapido"><div id="c-rapido"></div></section>
+  <section class="screen" id="s-lista"><div id="c-lista"></div></section>
+  <section class="screen" id="s-quizmenu"></section>
+  <section class="screen" id="s-quiz"><div id="c-quiz"></div></section>
+  <section class="screen" id="s-result"><div id="c-result"></div></section>
+
+</div>
+
+<nav class="tabbar" id="tabbar">
+  <button onclick="ir('s-inicio')" aria-label="Inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10H3z"/></svg><span>Inicio</span></button>
+  <button onclick="abrirMemoria()" aria-label="Memoria"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 00-4 12.7V19h8v-3.3A7 7 0 0012 3z"/></svg><span>Memoria</span></button>
+  <button onclick="abrirFlash()" aria-label="Flashcards"><svg viewBox="0 0 24 24"><path d="M3 7h14v10H3zM17 10h4v7h-4z"/></svg><span>Cards</span></button>
+  <button onclick="abrirRepaso()" aria-label="Repaso"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/></svg><span>Repaso</span></button>
+</nav>
+
+<div id="toast" class="toast"></div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
